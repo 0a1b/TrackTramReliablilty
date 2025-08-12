@@ -1,0 +1,56 @@
+## MVG API Endpoints Extracted
+
+Based on the source code analysis of the MVGFahrinfo Rust application, here are the **MVG API endpoints** being used:
+
+### **1. Departures API**
+```
+https://www.mvg.de/api/bgw-pt/v3/departures?globalId={station_id}
+```
+
+**Purpose**: Fetches real-time departure information for a specific station[1]
+
+**Parameters**:
+- `globalId`: Station identifier (e.g., "de:09162:1")
+
+**Response Structure**: Array of departure objects containing:
+- `planned_departure_time`: Scheduled departure time (Unix timestamp)[1]
+- `realtime_departure_time`: Actual departure time (Unix timestamp)[1]
+- `delay_in_minutes`: Delay in minutes (nullable)[1]
+- `transport_type`: Type of transport ("UBAHN", "SBAHN", "BUS", "TRAM")[1]
+- `label`: Line identifier (e.g., "U8", "S1")[1]
+- `destination`: Final destination[1]
+- `cancelled`: Boolean indicating if cancelled[1]
+- `platform`: Platform information (nullable)[1]
+- `realtime`: Boolean indicating real-time data availability[1]
+
+### **2. Stations API**
+```
+https://www.mvg.de/.rest/zdm/stations
+```
+
+**Purpose**: Fetches complete list of all MVG stations[1]
+
+**Response Structure**: Array of station objects containing:
+- `name`: Station name[1]
+- `place`: Location/city[1]
+- `id`: Global station ID (e.g., "de:09162:1")[1]
+- `diva_id`: Internal MVG station ID[1]
+- `latitude`/`longitude`: GPS coordinates[1]
+- `tariff_zones`: Fare zone information[1]
+- `products`: Available transport types[1]
+
+### **Implementation Details**
+
+The application uses **reqwest** HTTP client in Rust to make GET requests to these endpoints. The stations data is cached locally in `stations.json` to avoid repeated API calls.[1]
+
+**Key Features**:
+- **300-second auto-refresh** for departure data[1]
+- **Real-time delay calculation** using the difference between planned and actual departure times
+- **Transport type filtering** and color coding for different vehicle types[1]
+
+These are the core **unofficial MVG API endpoints** that power Munich's public transport real-time information system.
+
+[1] https://github.com/FaisalBinAhmed/MVGFahrinfo
+[2] https://github.com/FaisalBinAhmed/MVGFahrinfo/blob/main/src/api.rs
+[3] https://github.com/FaisalBinAhmed/MVGFahrinfo/blob/main/src/app.rs
+[4] https://github.com/FaisalBinAhmed/MVGFahrinfo/blob/main/src/update.rs

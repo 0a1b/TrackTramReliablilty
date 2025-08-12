@@ -1,0 +1,10 @@
+# Example configuration for TrackTramReliability
+# Copy to config/local.yml and adjust.
+
+db_url: "sqlite:///./data/reliability.db"
+polling_interval_seconds: 300
+log_level: "INFO"
+
+stations:
+  names: ["Marienplatz", "Hauptbahnhof"]
+  ids: ["de:09162:1"]

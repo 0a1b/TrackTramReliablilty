@@ -97,9 +97,9 @@ Run `ttr --help` to see all commands.
 
 ## Typical Workflow
 1) Install and activate the environment (see Installation)
-2) Cache stations: `ttr load-stations`
+2) Cache stations: `ttr load_stations`
 3) Initialize DB: `ttr initdb`
-4) Sync stations to DB: `ttr sync-stations`
+4) Sync stations to DB: `ttr sync_stations`
 5) Ingest once or start polling:
    - Once: `ttr ingest --products TRAM`
    - Poll: `ttr poll --products BUS,TRAM --interval 300`

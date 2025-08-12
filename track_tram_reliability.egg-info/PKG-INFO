@@ -1,0 +1,47 @@
+Metadata-Version: 2.4
+Name: track-tram-reliability
+Version: 0.1.0
+Summary: Collect and store reliability data (delays, cancellations) for MVG public transportation
+Author: Rovo Dev
+Project-URL: Homepage, https://example.com/track-tram-reliability
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.32.0
+Requires-Dist: pydantic>=2.7.0
+Requires-Dist: SQLAlchemy>=2.0.0
+Requires-Dist: alembic>=1.13.0
+Requires-Dist: PyYAML>=6.0.0
+Requires-Dist: typer[all]>=0.12.0
+Dynamic: license-file
+
+# TrackTramReliability
+
+A Python project to collect and store reliability data (delays, cancellations) for Munich MVG public transportation. It fetches station metadata and real-time departures from MVG endpoints and stores normalized records in a database for later analysis.
+
+Sources:
+- Stations API: https://www.mvg.de/.rest/zdm/stations
+- Departures API: https://www.mvg.de/api/bgw-pt/v3/departures?globalId={station_id}
+
+Project goals:
+- Poll departures for selected stations at a fixed cadence (default: 300s)
+- Store raw departures in a database with idempotent inserts
+- Provide basic aggregation jobs for reliability metrics by station and line
+
+Structure:
+- src/track_tram_reliability: Python package source
+- tests/: tests
+- config/: configuration templates and examples
+- data/: runtime cache (e.g., stations.json)
+
+Setup (local development):
+1) Create a virtual environment and install this package in editable mode:
+   - python -m venv .venv
+   - source .venv/bin/activate  (Windows: .venv\\Scripts\\activate)
+   - pip install -e .
+
+2) (Later) Configure your stations and DB in config files.
+
+3) (Later) Run the CLI to fetch and poll.
+
+Note: The MVG API is unofficial and may change or be rate-limited.

@@ -1,0 +1,2 @@
+[console_scripts]
+ttr = track_tram_reliability.cli:app
